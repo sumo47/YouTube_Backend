@@ -1,21 +1,40 @@
 import mongoose from 'mongoose'
 import users from '../models/auth.js'
 
-export const updateChannelData = async (req,res)=>{
-    const {id:_id} = req.params
-    const {name, desc} = req.body
+export const updateChannelData = async (req, res) => {
+    const { id: _id } = req.params
+    const { name, desc } = req.body
 
-    if(!mongoose.Types.ObjectId.isValid(_id)){
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(400).send('Channel Unavailable...')
     }
     try {
         const updateData = await users.findByIdAndUpdate(_id, {
-            $set:{
-                'name':name, 'desc':desc
+            $set: {
+                'name': name, 'desc': desc
             }
-        }, {new:true})
-        res.status(200).json({updateData})
+        }, { new: true })
+        res.status(200).json({ updateData })
     } catch (error) {
-        res.status(405).json({message:error.message})
+        res.status(405).json({ message: error.message })
+    }
+}
+
+export const getAllChanels = async (req, res) => {
+    try {
+        const allChannels = await users.find();
+        const allChanelDetails = [];
+        allChannels.forEach((chanel) => {
+            allChanelDetails.push({
+                _id: chanel._id,
+                name: chanel.name,
+                email: chanel.email,
+                desc: chanel.desc
+            })
+        })
+        console.log('called ')
+        res.status(200).json(allChanelDetails);
+    } catch (error) {
+        res.status(404).json({ message: error.message })
     }
 }
