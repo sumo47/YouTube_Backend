@@ -32,7 +32,7 @@ export const getAllChanels = async (req, res) => {
                 desc: chanel.desc
             })
         })
-        console.log('called ')
+        // console.log('called ')
         res.status(200).json(allChanelDetails);
     } catch (error) {
         res.status(404).json({ message: error.message })
