@@ -10,7 +10,7 @@ export const uploadVideo = async (req, res, next) => {
             const file = new videoFiles({
                 videoTitle: req.body.title,
                 fileName: req.file.originalname,
-                fileName: req.file.path,
+                filePath: req.file.path,
                 fileType: req.file.mimetype,
                 fileSize: req.file.size,
                 videoChanel: req.body.chanel,
@@ -22,5 +22,16 @@ export const uploadVideo = async (req, res, next) => {
         } catch (error) {
             res.status(400).send(error.message)
         }
+    }
+}
+
+
+export const getAllVideos = async (req, res) => {
+    try {
+        const files = await videoFiles.find()
+        // if(!files) return res.status(404).send("videos not found")
+        res.status(200).send(files)
+    } catch (error) {
+        res.status(404).send(error.message)
     }
 }
