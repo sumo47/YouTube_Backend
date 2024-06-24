@@ -25,7 +25,6 @@ export const uploadVideo = async (req, res, next) => {
     }
 }
 
-
 export const getAllVideos = async (req, res) => {
     try {
         const files = await videoFiles.find()

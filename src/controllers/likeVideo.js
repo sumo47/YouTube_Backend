@@ -13,3 +13,12 @@ export const likeVideoController = async (req, res) => {
         res.status(400).json(error)
     }
 }
+
+export const getAllLikeVideoController = async (req, res) => {
+    try {
+        const likedVideos = await likedVideo.find()
+        return res.status(200).json(likedVideos)
+    } catch (error) {
+        res.status(404).send(error.message)
+    }
+}

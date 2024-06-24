@@ -11,6 +11,6 @@ const likedVideoSchema = mongoose.Schema({
     LikedOn: {
         type: Date, default: Date.now()
     }
-})
+}, {timestamps:true})
 
 export default mongoose.model('LikedVideo', likedVideoSchema)
